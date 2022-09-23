@@ -1,0 +1,31 @@
+INFORMATION MODEL = conceitual e abstrato (contem varios data models)
+DATA MODELS = concreto e detalhado, "blueprint of any database system"
+ERM - Entity Relationship Model - entidades são independentes!
+    Entidade: retangulo no diagrama, tabelas
+    Atributos: redondo no diagrama, colunas
+ERD - Entity Relationship Diagram
+Simplified Library ER Diagram - relação entre os ERD
+
+Types of Relationships
+    Entities sets: retangulo
+    Relationship sets: -- losango --
+    Crows foot notations: ket > (many) , double pipe || (one), bra < (many)
+
+Relational Database is a set of relations (tables)
+    Relational Schema: nome, atributos e seus tipos
+    Relational Instance: tabela com atributos populados com linhas (tuplas)
+    Degree: número de colunas (atributos)
+    Cardinalidade: número de linhas (tuplas)
+
+CREATE SCHEMA <name> AUTHORIZATION <user>
+CREATE TABLE
+    DEFAULT: valor padrao do atributo
+    CHECK: condicoes dos atributos para permitir INSERT ou UPDATE
+SELECT <expressao de teste>
+WHEN <expressao 1>
+    acao
+WHEN <expressao 2>
+    acao
+OTHERWISE
+    acao
+END

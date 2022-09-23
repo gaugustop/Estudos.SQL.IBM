@@ -1,0 +1,92 @@
+Functions
+    built-in functions
+    user-defined functions
+
+Aggregate or Column Functions
+    SUM(COLUMN_NAME)
+        select sum(saleprice) as sum_of_saleprice from petsale
+    MIN(), MAX()
+        select max(quantity) from petsale
+        select min(id) from petsale where animal = 'dog'
+    AVG()
+        select avg(saleprice) from petsaleselect avg(saleprice / quantity)
+        from petsale where animal = 'dog'
+
+Scalar and String Functions
+    ROUND()
+        select ROUND(saleprice) from petsale
+    LENGTH()
+        select LENGTH(animal) from petsale
+    UCASE(), LCASE()
+        select UCASE(animal) from petsale
+        select * from petsale where LCASE(animal) = 'cat'
+
+Multiples Functions
+    select distinct(ucase(animal)) from petsale
+
+Date and Time Functions
+    Formats
+        Date: YYYYMMDD
+        Time: HHMMSS
+        Timestamp: YYYYXXDDHHMMSSZZZZZZ
+    Functions
+        YEAR(), MONTH(), DAY(), DAYOFMONTH(), DAYOFWEEK(),
+        DAYOFYEAR(), WEEK(), HOUR(), MINUTE(), SECOND()
+    Special Registers
+        CURRENT_DATE, CURRENT_TIME
+    exemplos
+        select day(saledate) from petsale where animal = 'cat'
+        select count(*) from petsale where month(saledate)='05'
+        select (saledate + 3 days) from petsale
+        select (CURRENT_DATE - SALEDATE) from petsale
+
+Subqueries and Nested Selects
+    Obs.: Aggregate functions can´t be evaluated in the WHERE clause
+    Sub-Query
+        select EMP_ID, F_NAME, L_NAME from employees
+        where salary < (select avg(salary) from employees);
+    Column Expression
+        select EMP_ID, salary,
+        (select avg(salary) from employees) as avg_salary
+        from employees;
+    Derived Tables or Table Expression
+        select * from
+        (select emp_id, f_name, l_name, dep_id from employees) as emp4all;
+
+Working with Multiple Tables
+    Sub-queries
+        ex1
+            select * from employees
+            where DEP_IN in
+            ( select DEPT_ID_DEP from departments );
+        ex2
+            select * from employees
+            where DEP_IN in
+            ( select DEPT_ID_DEP from departments
+            where LOC_ID = 'L0002' );
+        ex3 
+            select DEPT_OD_DEP, DEP_NAME from departments
+            where DEPT_ID_DEP in
+            ( select DEP_ID from employees
+            where SALARY > 70000 );        
+    Implicit JOIN
+        select * from employees, departments;
+        -- full join, or Cartesian join
+        -- Every row in the first table is joined with every row in the second table
+        -- The result will have more rows than in both tables
+        ex1
+            select * from employees, departments
+            where employees.DEP_ID = departments.DEPT_ID_DEP;
+        ex2 (alias)
+            select * from employees E, departments DATA
+            where E.DEP_ID = D.DEPT_ID_DEP;
+        ex3
+            select employees.EMP_ID, departments.DEPT_NAME
+            from employees E, departments D
+            where E.DEP_ID = D.DEPT_ID_DEP;
+        ex4
+            select E.EMP_ID, D.DEPT_ID_DEP from
+            employees E, departments D
+            where E_DEP_ID = D.DEPT_ID_DEP
+    
+    JOIN operators (INNER JOIN, OUTER JOIN, etc)

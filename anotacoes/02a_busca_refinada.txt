@@ -1,0 +1,35 @@
+Patterns to search
+    ex1
+        select <column> from <table> where <column> like 'R%'
+        select firstname from author where firstname like 'R%'
+        % (wild card character) --missing letters
+    ex2
+        select title, pages from book where pages >= 290 AND pages <= 300
+        select title, pages from book where pages between 290 and 300
+    ex3
+        select firstname, lastname, country from author where country='AU' OR country='BR'
+        select firstname, lastname, country from author where country in ('AU','BR')
+
+Results sets
+    ORDER BY clause
+        select title from book order by title --ordem crescente
+        select title from book order by title desc --ordem descrescente
+        select title, pages from book order by 2 --orderá por pages
+        select title, pages from book order by 1 --orderá por title
+        
+    DISTINCT clause
+        select country from author order by 1
+        select distinct(country) from author
+
+   GROUP BY clause
+        select country from author order by 1
+        select country, count(country) from author group by country
+        select country, count(country) as count from author group by country
+
+   HAVING clause -- works only with the groupby clause
+        select country, count(country) as count from author group by country
+        select country, count(country) as count from author
+        group by country having count(country) > 4
+        obs.: WHERE clause is used for filtering the entire result set
+              whereas the HAVING clause is used for filtering the result
+              of the grouping

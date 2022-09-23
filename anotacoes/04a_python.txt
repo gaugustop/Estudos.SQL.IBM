@@ -1,0 +1,116 @@
+DB API
+    Application program ---> DBMS
+    -> CONNECT(db, user, pswd)
+    -> SEND("update employees set...")
+    -> EXECUTE()
+    -> STATUS_CHECK()
+    <- OK
+    -> DISCONNECT()
+
+
+
+Application or Database: SQL API
+    MySQL: MySQL C API, MySQL Connector/Python
+    PostgreSQL: psycopg2
+    MongoDB: PyMongo
+    IBM DB2: ibm_db
+    SQL Server: dblib API
+    Database access for Microsoft Windows OS: ODBC
+    Oracle: OCI
+    JAVA: JDBC
+
+
+
+Objetcs
+    Connection Objects
+        Create database connections
+        Manage transactions
+        Methods
+            cursor()
+            commit()
+            rollback()
+            close()
+    Cursor Objects
+        Um cursor de banco de dados é como um identificador de arquivo,
+        pois permite que você examine um conjunto de resultados de uma consulta.
+        Make database Queries
+        Methods
+           callproc()
+           execute()
+           executemany()
+           fetchone()
+           fetchmany()
+           fetchall()
+           nextset()
+           Arraysize()
+           close()
+    Example1 dbmodule
+        from dbmodule import connect   
+        #create a connection object
+        connection = connect('databasename','username','pswd')
+        #create a cursor object
+        cursor = connection.cursor()
+        #run Queries
+        cursor.execute('select * from mytable')
+        results = cursor.fetchall()
+        #free resources IMPORTANT!!!
+        cursor.close()
+        connection.close()
+
+
+
+   Example2 sqlite
+        import sqlite3
+        conexao = sqlite3.connect('basededados.db')
+        cursor = conexao.cursor()
+
+
+
+       #DDL
+        cursor.execute('CREATE TABLE IF NOT EXISTS clientes ('
+                       'id INTEGER PRIMARY KEY AUTOINCREMENT,'
+                       'nome TEXT,'
+                       'peso REAL'
+                       ')')
+        #DML
+        #INSERT
+        cursor.execute('INSERT INTO clients (nome, peso) VALUES ("Luiz Otavio", 80.5)')
+        
+        #formas de inserir registros evitando o SQL injection:
+        cursor.execute('INSERT INTO clientes (nome, peso) VALUES (?,?)', ('Maria', 50))
+        cursor.execute('INSERT INTO clientes (nome, peso) VALUES (:nome, :peso)',
+                       {'nome': 'Joãozinho','peso': 25})
+        cursor.execute('INSERT INTO clientes VALUES (:id, :nome, :peso)',
+                       {'id': None, 'nome': 'Daniel','peso': 113})
+        
+        #UPDATE
+        cursor.execute('UPDATE clientes SET nome=:nome WHERE id=:id',
+                       {'nome': 'Joana', 'id': 2}))
+        
+        #envia todas as execuções do cursor
+        conexao.commit()
+
+
+
+       #buscar os dados da tabela clientes
+        cursor.execute('SELECT * FROM clientes')
+        for linha in cursor.fetchall(): #buscar todos os valores do ultimo comando
+            print(linha)
+
+
+
+       cursor.close()
+        cursor.close()
+
+
+
+Pandas
+    import pandas
+    import ibm_db_dbi
+    pconn = ibm_db_dbi.Connection(conn)
+    df = pandas.read_sql('SELECT * FROM Trucks', pconn)
+
+
+
+Load CSV into table
+    Source, Target, Define, Finalize

@@ -1,0 +1,25 @@
+Referencing
+    Relação 1 para 1: 
+    []--||--<>--||--[]
+
+Keys
+    PRIMARY -- indentifica exclusivamente uma linha em uma tabela
+    FOREIGN -- uma chave primária de outra tabela
+
+Parent table -- uma tablea com chave primária relacionada com pelo menos uma chave estrangeira
+Dependant table (or child table) -- tabela com uma ou mais chave estrangeira
+
+Contraints
+    Entity Integrity Constraint
+        Primary Key - prevent duplicate value in a table
+    Referential Integrity Constraint
+        Combinação de chaves primárias e extrangeiras
+    Semantic Integrity Constraint
+        Correctness of the meaning of the data
+    Domain Constraint
+        Types allowed in values
+    Null Constraint
+        Attributes values can not be NULL
+    Check Constraint
+        limiting the values accepted by the attributes
+

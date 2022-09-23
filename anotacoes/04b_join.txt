@@ -1,0 +1,32 @@
+JOIN
+    Inner Join -- Interseção!
+        EX1
+        SELECT B.BORROWER_ID, B.LASTNAME, B.COUNTRY,
+        L.BORROWER_ID, L.LOAN_DATE
+        FROM BORROWER B INNER JOIN LOAN L
+        ON B.BORROWER_ID = L.BORROWER_ID
+        
+        EX2 (tres tabelas)
+        SELECT B.LASTNAME, L.COPY_ID, C.STATUS
+        FROM BORROWER B
+            INNER JOIN LOAN L ON B.BORROWER_ID = L.BORROWER_ID
+            INNER JOIN COPY C ON L.COPY_ID = C.COPY_ID
+    Outer Join -- se não tiver correspondencia é devolvido NULL
+        Left Outer Join
+            EX
+            SELECT B.BORROWER_ID, B.LASTNAME, B.COUNTRY,
+            L.BORROWER_ID, L.LOAN_DATE
+            FROM BORROWER B LEFT JOIN LOAN L
+            ON B.BORROWER = L.BORROWER_ID
+        Right Outer Join
+            EX
+            SELECT B.BORROWER_ID, B.LASTNAME, B.COUNTRY,
+            L.BORROWER_ID, L.LOAN_DATE
+            FROM BORROWER B RIGHT JOIN LOAN L
+            ON B.BORROWER = L.BORROWER_ID
+        Full Outer Join
+            EX
+            SELECT B.BORROWER_ID, B.LASTNAME, B.COUNTRY,
+            L.BORROWER_ID, L.LOAN_DATE
+            FROM BORROWER B FULL JOIN LOAN L
+            ON B.BORROWER = L.BORROWER_ID
