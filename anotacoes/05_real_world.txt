@@ -1,0 +1,60 @@
+Mixed (upper and lower) case
+    Use double quotes entre aspas para esses casos!
+    select "Id" from DOGS
+Spaces e caracteres especiais
+    espaco -> _
+    parenteses -> _
+    Breed (dominant breed if not pure) ->
+    "Breed__dominant_breed_if_not_pure_"
+Using quotes in .ipynb
+    assign queires to variables
+        selectQuery = 'select "Id" from dogs'
+    Use backslach \ as escape caracter in cases where
+    the query contains singles quotes
+        selectQuery = 'select * from dogs where "Name_of_Dog"=\'Huggy\' '
+    Splitting queries to multiple lines
+        %sql select "Id", "Name_of_Dog", \
+        from dogs \
+        where "Name_of_Dog"='Huggy'
+        Ou use %% sql:
+        %%sql
+        select "Id", "Name_of_Dog",
+        from dogs
+        where "Name_of_Dog"='Huggy'
+    Restrict the # of rows
+        select * from census_data LIMIT 3
+
+Catalog of tables (table of tables)
+    db2 -> Syscat tables
+        select * from syscat.tables
+        select TABSCHEMA, TABNAME, CREATE_TIME
+            from syscat.tables
+            where tabschema='ABC12345' --'USERNAME'
+        
+    Sql Server -> Information Schema tables
+    Oracle -> User tables
+get columns of table
+    db2
+        select * from syscat.columns
+        where tabname = 'DOGS'
+    mySQL
+        show columns from 'DOGS'
+get specific columns properties
+    db2
+        select distinct(name), coltype, length
+        from sysibm.syscolumns
+        where tbname = 'DOGS'
+
+You'll want to investigate the database engine's data dictionary,
+if it has one. It all depends upon what kind of database it is.
+    For Oracle, there's a huge set of tables that form the data dictionary. Try running:
+        SELECT * FROM SYS.ALL_TABLES; -- To figure out tables
+        SELECT * FROM SYS.ALL_TAB_COLUMNS WHERE owner = 'schema' and table_name = 'table_name_found_above';
+    For SQLite, try running (although I doubt a bugzilla is running this):
+        SELECT * FROM sqlite_master; -- this should list all column names in the CREATE statement
+    In MySQL, PostgreSQL, SQL Server try running:
+        SELECT * FROM INFORMATION_SCHEMA.tables;
+        SELECT * from INFORMATION_SCHEMA.columns WHERE table_schema = 'schema' and table_name = 'table';
+    In DB2, try:
+        SELECT * FROM SYSCAT.tables;
+        SELECT * FROM SYSCAT.columns where tabname = 'table' and tabschema = 'schema';
